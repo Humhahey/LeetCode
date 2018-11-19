@@ -1,0 +1,26 @@
+class Solution {
+    public int romanToInt(String s) {
+        char[] chars = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
+        int[] ints = {1, 5, 10, 50, 100, 500, 1000};
+        int ans=0,i=0;
+        Map<Character, Integer> map = new HashMap<>();
+        for (i=0;i<chars.length&&i<ints.length;i++) {
+            map.put(chars[i], ints[i]);
+        }
+        chars = s.toCharArray();
+        for (i = 0; i < chars.length-1; ) {
+            if (map.get(chars[i]) < map.get(chars[i+1])) {
+                ans+=map.get(chars[i+1])-map.get(chars[i]);
+                i+=2;
+            }
+            else {
+                ans += map.get(chars[i]);
+                i++;
+            }
+        }
+        if (i == chars.length-1) {
+            ans += map.get(chars[i]);
+        }
+        return ans;
+    }
+}
